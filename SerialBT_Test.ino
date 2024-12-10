@@ -60,6 +60,12 @@ void GlobalPrint(String line) {
   Serial.println(line);
 }
 
+void ForceStop() {
+  GlobalPrint("Client unavailable, motors stopped.");
+  motorL.brake();
+  motorR.brake();
+}
+
 //Input/Output do Serial
 void robotIO(String input) {
   
