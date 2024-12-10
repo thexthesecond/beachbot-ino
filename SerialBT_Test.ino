@@ -72,25 +72,25 @@ void robotIO(String input) {
   if(input.equals("F")) {
     GlobalPrint("FORWARD");
     motorL.rotate(255, TomIBT2::CW);
-    motorR.rotate(255, TomIBT2::CW);
+    motorR.rotate(255, TomIBT2::CCW);
   }
 
   if(input.equals("B")) {
     GlobalPrint("BACKWARDS");
     motorL.rotate(255, TomIBT2::CCW);
-    motorR.rotate(255, TomIBT2::CCW);
+    motorR.rotate(255, TomIBT2::CW);
   }
 
   if(input.equals("L")) {
     GlobalPrint("LEFT");
     motorL.rotate(255, TomIBT2::CCW);
-    motorR.rotate(255, TomIBT2::CW);
+    motorR.rotate(255, TomIBT2::CCW);
   }
 
   if(input.equals("R")) {
     GlobalPrint("RIGHT");
     motorL.rotate(255, TomIBT2::CW);
-    motorR.rotate(255, TomIBT2::CCW);
+    motorR.rotate(255, TomIBT2::CW);
   }
 
   if(input.equals("P")) {
