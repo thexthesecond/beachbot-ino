@@ -11,7 +11,7 @@
 #define RMOTOR_PIN_RPWM 18
 #define RMOTOR_PIN_LPWM 19
 
-String device_name = "Carlos ESP32";
+String device_name = "BeachBOT-ESP32";
 
 // Check if Bluetooth is available
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
