@@ -1,15 +1,15 @@
 #include <TomIBT2.h>
 #include "BluetoothSerial.h"
 
-#define LMOTOR_PIN_R_EN 25
-#define LMOTOR_PIN_L_EN 26
-#define LMOTOR_PIN_RPWM 33
-#define LMOTOR_PIN_LPWM 32
+#define RMOTOR_PIN_R_EN 25
+#define RMOTOR_PIN_L_EN 26
+#define RMOTOR_PIN_RPWM 33
+#define RMOTOR_PIN_LPWM 32
 
-#define RMOTOR_PIN_R_EN 16
-#define RMOTOR_PIN_L_EN 5
-#define RMOTOR_PIN_RPWM 18
-#define RMOTOR_PIN_LPWM 19
+#define LMOTOR_PIN_R_EN 16
+#define LMOTOR_PIN_L_EN 5
+#define LMOTOR_PIN_RPWM 18
+#define LMOTOR_PIN_LPWM 19
 
 String device_name = "ESP32-BT-Slave";
 
@@ -25,6 +25,8 @@ BluetoothSerial SerialBT;
 
 TomIBT2 L_MOTOR(LMOTOR_PIN_R_EN, LMOTOR_PIN_L_EN, LMOTOR_PIN_RPWM, LMOTOR_PIN_LPWM);
 TomIBT2 R_MOTOR(RMOTOR_PIN_R_EN, RMOTOR_PIN_L_EN, RMOTOR_PIN_RPWM, RMOTOR_PIN_LPWM);
+
+const int speed = 127;
 
 void setup() {
   Serial.begin(115200);
@@ -56,7 +58,7 @@ void loop() {
   delay(20);
 }
 
-void Drive(int speed, TomIBT2::Direction LeftDir, TomIBT2::Direction RightDir) {
+void Drive(TomIBT2::Direction LeftDir, TomIBT2::Direction RightDir) {
   L_MOTOR.rotate(speed, LeftDir);
   R_MOTOR.rotate(speed, RightDir);
 }
@@ -72,36 +74,24 @@ void StopMotors() {
 }
 
 void RobotIO(char input) {
-  bool StrainControl;
-
   if (input == 'F') {
     Serial.println("FORWARD");
-    Drive(127, TomIBT2::CW, TomIBT2::CCW);
+    Drive(TomIBT2::CW, TomIBT2::CCW);
   }
 
   if (input == 'B') {
     Serial.println("BACKWARDS");
-    Drive(127, TomIBT2::CCW, TomIBT2::CW);
+    Drive(TomIBT2::CCW, TomIBT2::CW);
   }
 
   if (input == 'L') {
     Serial.println("LEFT");
-    Drive(127, TomIBT2::CW, TomIBT2::CW);
+    Drive(TomIBT2::CW, TomIBT2::CW);
   }
 
   if (input == 'R') {
     Serial.println("RIGHT");
-    Drive(127, TomIBT2::CCW, TomIBT2::CCW);
-  }
-
-  if (input == 'T') {
-    StrainControl = true;
-    Serial.println("STRAIN ON");
-  }
-
-  if (input == 'S') {
-    StrainControl = false;
-    Serial.println("STRAIN OFF");
+    Drive(TomIBT2::CCW, TomIBT2::CCW);
   }
 
   if (input == '0') {
