@@ -34,11 +34,11 @@ void setup() {
   //SerialBT.deleteAllBondedDevices(); // Uncomment this to delete paired devices; Must be called after begin
   Serial.printf("The device with name \"%s\" is started.\nNow you can pair it with Bluetooth!\n", device_name.c_str());
 
-  StartMotors();
+  L_MOTOR.begin();
+  R_MOTOR.begin();
 }
 
 void loop() {
-
   if (!SerialBT.hasClient()) {
     R_MOTOR.brake();
     L_MOTOR.brake();
@@ -47,12 +47,6 @@ void loop() {
   if (SerialBT.available()) {
     char input = SerialBT.read();
 
-    if (input == 'A') {
-      StartMotors();
-    }
-    if (input == 'P') {
-      StopMotors();
-    }
     RobotIO(input);
   }
   delay(20);
@@ -61,16 +55,6 @@ void loop() {
 void Drive(TomIBT2::Direction LeftDir, TomIBT2::Direction RightDir) {
   L_MOTOR.rotate(speed, LeftDir);
   R_MOTOR.rotate(speed, RightDir);
-}
-
-void StartMotors() {
-  L_MOTOR.begin();
-  R_MOTOR.begin();
-}
-
-void StopMotors() {
-  R_MOTOR.stop();
-  L_MOTOR.stop();
 }
 
 void RobotIO(char input) {
