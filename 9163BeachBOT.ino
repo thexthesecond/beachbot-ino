@@ -1,6 +1,7 @@
 #include <TomIBT2.h>
 #include "BluetoothSerial.h"
 
+//Definicao dos pinos
 #define RMOTOR_PIN_R_EN 25
 #define RMOTOR_PIN_L_EN 26
 #define RMOTOR_PIN_RPWM 33
@@ -52,11 +53,14 @@ void loop() {
   delay(20);
 }
 
+// Metodo de controle de motores, para simplificar o codigo
 void Drive(TomIBT2::Direction LeftDir, TomIBT2::Direction RightDir) {
   L_MOTOR.rotate(speed, LeftDir);
   R_MOTOR.rotate(speed, RightDir);
 }
 
+
+// Metodo de input/output do Serial
 void RobotIO(char input) {
   if (input == 'F') {
     Serial.println("FORWARD");
